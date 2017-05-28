@@ -23,7 +23,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Trem *trem1;
+    Trem *train1, *train2, *train3, *train4, *train5, *train6, *train7;
 };
 
 #endif // MAINWINDOW_H

@@ -1,4 +1,5 @@
 #include "trem.h"
+#include "sizes.h"
 
 Trem::Trem(int id, int x, int y)
 {
@@ -37,18 +38,99 @@ void Trem::run()
             if (enable)
             {
                 emit updateGUI(id,x,y);
-                if (y == 120 && x <290)
+                if (y == (X1+SIZE,Y1-(SIZE/2)) && x < (X1+SIZE1-(SIZE/2)))
                     x+=10;
-                else if (x == 290 && y < 220)
+                else if (x == (X1+SIZE1-(SIZE/2)) && y < (Y1+SIZE2-(SIZE/2)))
                     y+=10;
-                else if (x > 150 && y == 220)
+                else if (x > (X1-(SIZE/2)) && y == (Y1+SIZE2-(SIZE/2)))
                     x-=10;
                 else
                     y-=10;
             }
             break;
         case 2:
-            //emit updateGUI(id, x,y);
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X2+SIZE,Y1-(SIZE/2)) && x < (X2+SIZE2-(SIZE/2)))
+                    x+=10;
+                else if (x == (X2+SIZE2-(SIZE/2)) && y < (Y1+SIZE1-(SIZE/2)))
+                    y+=10;
+                else if (x > (X2-(SIZE/2)) && y == (Y1+SIZE1-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 3:
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X3+SIZE,Y1-(SIZE/2)) && x < (X3+SIZE2-(SIZE/2)))
+                    x+=10;
+                else if (x == (X3+SIZE2-(SIZE/2)) && y < (Y1+SIZE1-(SIZE/2)))
+                    y+=10;
+                else if (x > (X3-(SIZE/2)) && y == (Y1+SIZE1-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 4:
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X4+SIZE,Y1-(SIZE/2)) && x < (X4+SIZE1-(SIZE/2)))
+                    x+=10;
+                else if (x == (X4+SIZE1-(SIZE/2)) && y < (Y1+SIZE2-(SIZE/2)))
+                    y+=10;
+                else if (x > (X4-(SIZE/2)) && y == (Y1+SIZE2-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 5:
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X3+SIZE,Y3-(SIZE/2)) && x < (X3+SIZE2-(SIZE/2)))
+                    x+=10;
+                else if (x == (X3+SIZE2-(SIZE/2)) && y < (Y3+SIZE1-(SIZE/2)))
+                    y+=10;
+                else if (x > (X3-(SIZE/2)) && y == (Y3+SIZE1-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 6:
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X2+SIZE,Y3-(SIZE/2)) && x < (X2+SIZE2-(SIZE/2)))
+                    x+=10;
+                else if (x == (X2+SIZE2-(SIZE/2)) && y < (Y3+SIZE1-(SIZE/2)))
+                    y+=10;
+                else if (x > (X2-(SIZE/2)) && y == (Y3+SIZE1-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
+            break;
+        case 7:
+            if (enable)
+            {
+                emit updateGUI(id,x,y);
+                if (y == (X7+SIZE,Y2-(SIZE/2)) && x < (X7+SIZE2-(SIZE/2)))
+                    x+=10;
+                else if (x == (X7+SIZE2-(SIZE/2)) && y < (Y2+SIZE1-(SIZE/2)))
+                    y+=10;
+                else if (x > (X7-(SIZE/2)) && y == (Y2+SIZE1-(SIZE/2)))
+                    x-=10;
+                else
+                    y-=10;
+            }
             break;
         default:
             break;

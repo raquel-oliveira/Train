@@ -29,6 +29,9 @@
       <height>330</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: indigo</string>
     </property>
@@ -36,17 +39,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="labelTrem01">
+   <widget class="QLabel" name="train01">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>130</y>
+      <x>90</x>
+      <y>10</y>
       <width>20</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red</string>
+     <string notr="true">background-color: white</string>
     </property>
     <property name="text">
      <string/>
@@ -148,6 +151,119 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="train02">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>10</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train03">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>10</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train04">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>170</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train05">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>340</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train06">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>230</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train07">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>120</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>trainTrack02</zorder>
+   <zorder>trainTrack01</zorder>
+   <zorder>train01</zorder>
+   <zorder>trainTrack04</zorder>
+   <zorder>trainTrack03</zorder>
+   <zorder>trainTrack06</zorder>
+   <zorder>trainTrack05</zorder>
+   <zorder>trainTrack07</zorder>
+   <zorder>train02</zorder>
+   <zorder>train03</zorder>
+   <zorder>train04</zorder>
+   <zorder>train05</zorder>
+   <zorder>train06</zorder>
+   <zorder>train07</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
