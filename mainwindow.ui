@@ -293,9 +293,9 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>360</y>
+      <y>370</y>
       <width>881</width>
-      <height>251</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="frameShape">
