@@ -16,6 +16,7 @@ public:
     void run();
     void setVelocidade(int);
     void setEnable(bool);
+    int getId();
 
 signals:
     void updateGUI(int,int,int);

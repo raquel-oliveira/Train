@@ -15,6 +15,10 @@ Trem::~Trem()
     threadTrem.join();
 }
 
+int Trem::getId(){
+    return this->id;
+}
+
 void Trem::setVelocidade(int velocidade)
 {
     this->velocidade = velocidade;

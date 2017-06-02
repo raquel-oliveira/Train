@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     trem.cpp
 
 HEADERS  += mainwindow.h \
-    trem.h
+    trem.h \
+    sizes.h
 
 FORMS    += mainwindow.ui
 

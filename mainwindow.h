@@ -23,7 +23,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Trem *train1, *train2, *train3, *train4, *train5, *train6, *train7;
+    map<Trem*, QWidget*> trains;
 };
 
 #endif // MAINWINDOW_H

@@ -41,7 +41,7 @@
    </widget>
    <widget class="QLabel" name="train01">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -159,7 +159,7 @@
    </widget>
    <widget class="QLabel" name="train02">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -181,7 +181,7 @@
    </widget>
    <widget class="QLabel" name="train03">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -203,7 +203,7 @@
    </widget>
    <widget class="QLabel" name="train04">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -225,7 +225,7 @@
    </widget>
    <widget class="QLabel" name="train05">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -247,7 +247,7 @@
    </widget>
    <widget class="QLabel" name="train06">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -269,7 +269,7 @@
    </widget>
    <widget class="QLabel" name="train07">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
