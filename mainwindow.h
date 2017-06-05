@@ -20,6 +20,8 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
+    void enableTrains(bool b);
+    void enableTrain(int id, bool b);
 
 private:
     Ui::MainWindow *ui;

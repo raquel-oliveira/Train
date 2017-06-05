@@ -38,3 +38,21 @@ void MainWindow::updateInterface(int id, int x, int y)
         }
      }
 }
+
+void MainWindow::enableTrains(bool b){
+    for (map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it){
+         it->first->setEnable(b);
+         it->second->setEnabled(b);
+    }
+}
+
+void MainWindow::enableTrain(int id, bool b){
+    //TODO: change for find. Sobrecarregar ==
+    for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
+        if(it->first->getId() == id){
+            it->first->setEnable(b);
+            it->second->setEnabled(b);
+        }
+     }
+}
+
