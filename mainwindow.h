@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "trem.h"
+#include "train.h"
 #include <QMainWindow>
 
 using namespace std;
@@ -25,7 +25,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    map<Trem*, QWidget*> trains;
+    map<Train*, QWidget*, Train::CompLessTrain> trains;
 };
 
 #endif // MAINWINDOW_H

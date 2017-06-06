@@ -14,11 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    trem.cpp
+    train.cpp
 
 HEADERS  += mainwindow.h \
-    trem.h \
-    sizes.h
+    rail.h \
+    train.h
 
 FORMS    += mainwindow.ui
 
