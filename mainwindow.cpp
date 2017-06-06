@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "sizes.h"
+#include "rail.h"
 #include <map>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -8,14 +8,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    int x, y, width, height;
 
-    trains[new Trem(1,X1+SIZE,Y1-(SIZE/2))] = ui->train01;
-    trains[new Trem(2,X2+SIZE,Y1-(SIZE/2))] = ui->train02;
-    trains[new Trem(3,X3+SIZE,Y1-(SIZE/2))] = ui->train03;
-    trains[new Trem(4,X4+SIZE,Y1-(SIZE/2))] = ui->train04;
-    trains[new Trem(5,X3+SIZE,Y3-(SIZE/2))] = ui->train05;
-    trains[new Trem(6,X2+SIZE,Y3-(SIZE/2))] = ui->train06;
-    trains[new Trem(7,X7+SIZE,Y2-(SIZE/2))] = ui->train07;
+    ui->trainTrack01->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(1,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train01;
+
+    ui->trainTrack02->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(2,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train02;
+
+    ui->trainTrack03->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(3,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train03;
+
+    ui->trainTrack04->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(4,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train04;
+
+    ui->trainTrack05->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(5,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train05;
+
+    ui->trainTrack06->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(6,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train06;
+
+    ui->trainTrack07->geometry().getRect(&x, &y, &width, &height);
+    trains[new Trem(7,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train07;
 
     for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
         connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));

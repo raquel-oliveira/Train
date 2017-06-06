@@ -4,13 +4,17 @@
 #include <QObject>
 #include <thread>
 #include <chrono>
+#include "rail.h"
+
+//Defize size of train
+#define SIZE 20
 using namespace std;
 
 class Trem : public QObject
 {
     Q_OBJECT
 public:
-    Trem(int,int,int);
+    Trem(int,int,int,Rail);
     ~Trem();
     void start();
     void run();
@@ -28,6 +32,7 @@ private:
    int y;
    int velocidade;
    bool enable;
+   Rail rail;
 };
 
 #endif // TREM_H
