@@ -3,39 +3,46 @@
 #include "rail.h"
 #include <map>
 
+void MainWindow::initialize(){
+    label_train.push_back(NULL);
+    label_train.push_back(ui->train01);
+    label_train.push_back(ui->train02);
+    label_train.push_back(ui->train03);
+    label_train.push_back(ui->train04);
+    label_train.push_back(ui->train05);
+    label_train.push_back(ui->train06);
+    label_train.push_back(ui->train07);
+
+    label_trainTrack.push_back(NULL);
+    label_trainTrack.push_back(ui->trainTrack01);
+    label_trainTrack.push_back(ui->trainTrack02);
+    label_trainTrack.push_back(ui->trainTrack03);
+    label_trainTrack.push_back(ui->trainTrack04);
+    label_trainTrack.push_back(ui->trainTrack05);
+    label_trainTrack.push_back(ui->trainTrack06);
+    label_trainTrack.push_back(ui->trainTrack07);
+}
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    initialize();
+
     int x, y, width, height;
-
-    ui->trainTrack01->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(1,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train01;
-
-    ui->trainTrack02->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(2,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train02;
-
-    ui->trainTrack03->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(3,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train03;
-
-    ui->trainTrack04->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(4,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train04;
-
-    ui->trainTrack05->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(5,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train05;
-
-    ui->trainTrack06->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(6,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train06;
-
-    ui->trainTrack07->geometry().getRect(&x, &y, &width, &height);
-    trains[new Train(7,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train07;
-
-    for(map<Train*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
-        connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
-        it->first->start();
-        it->first->setEnable(false);
-     }
+    //Create trains by GUI
+    for(int i = 1; i < label_train.size(); i++) {
+        label_trainTrack[i]->geometry().getRect(&x, &y, &width, &height);
+        trains[new Train(i,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = label_train[i];
+    }
+    //Connect
+    for(auto it = trains.begin(); it != trains.end(); ++it) {
+           connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+           it->first->start();
+           it->first->setEnable(false);
+    }
 }
 
 MainWindow::~MainWindow()

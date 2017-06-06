@@ -22,10 +22,13 @@ public slots:
     void updateInterface(int,int,int);
     void enableTrains(bool b);
     void enableTrain(int id, bool b);
+    void initialize();
 
 private:
     Ui::MainWindow *ui;
     map<Train*, QWidget*, Train::CompLessTrain> trains;
+    vector<QWidget*> label_trainTrack;
+    vector<QWidget*> label_train;
 };
 
 #endif // MAINWINDOW_H
