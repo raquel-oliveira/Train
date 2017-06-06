@@ -25,7 +25,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    map<Trem*, QWidget*> trains;
+    map<Trem*, QWidget*, Trem::CompLessTrain> trains;
 };
 
 #endif // MAINWINDOW_H

@@ -14,13 +14,20 @@ class Trem : public QObject
 {
     Q_OBJECT
 public:
+
+    struct CompLessTrain {
+        bool operator()(Trem * t1, const Trem * t2) const{
+            return (t1->getId() < t2->getId());
+        }
+    };
+
     Trem(int,int,int,Rail);
     ~Trem();
     void start();
     void run();
     void setVelocidade(int);
     void setEnable(bool);
-    int getId();
+    int getId() const;
 
 signals:
     void updateGUI(int,int,int);

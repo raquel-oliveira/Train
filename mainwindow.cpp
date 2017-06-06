@@ -45,12 +45,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateInterface(int id, int x, int y)
 {
-    //TODO: change for find. Sobrecarregar ==
-    for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
-        if(it->first->getId() == id){
-             it->second->setGeometry(x,y,SIZE,SIZE);
-        }
-     }
+    Trem* t = new Trem (id, 0, 0, Rail(0,0,0,0));
+    auto it = trains.find(t);
+    it->second->setGeometry(x,y,SIZE,SIZE);
 }
 
 void MainWindow::enableTrains(bool b){
@@ -61,12 +58,9 @@ void MainWindow::enableTrains(bool b){
 }
 
 void MainWindow::enableTrain(int id, bool b){
-    //TODO: change for find. Sobrecarregar ==
-    for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
-        if(it->first->getId() == id){
-            it->first->setEnable(b);
-            it->second->setEnabled(b);
-        }
-     }
+    Trem* t = new Trem (id, 0, 0, Rail(0,0,0,0));
+    auto it = trains.find(t);
+    it->first->setEnable(b);
+    it->second->setEnabled(b);
 }
 

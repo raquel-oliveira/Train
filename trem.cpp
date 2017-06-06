@@ -17,7 +17,7 @@ Trem::~Trem()
     threadTrem.join();
 }
 
-int Trem::getId(){
+int Trem::getId() const{
     return this->id;
 }
 
