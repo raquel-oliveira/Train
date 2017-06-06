@@ -11,27 +11,27 @@ MainWindow::MainWindow(QWidget *parent) :
     int x, y, width, height;
 
     ui->trainTrack01->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(1,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train01;
+    trains[new Train(1,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train01;
 
     ui->trainTrack02->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(2,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train02;
+    trains[new Train(2,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train02;
 
     ui->trainTrack03->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(3,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train03;
+    trains[new Train(3,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train03;
 
     ui->trainTrack04->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(4,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train04;
+    trains[new Train(4,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train04;
 
     ui->trainTrack05->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(5,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train05;
+    trains[new Train(5,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train05;
 
     ui->trainTrack06->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(6,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train06;
+    trains[new Train(6,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train06;
 
     ui->trainTrack07->geometry().getRect(&x, &y, &width, &height);
-    trains[new Trem(7,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train07;
+    trains[new Train(7,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = ui->train07;
 
-    for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
+    for(map<Train*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
         connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
         it->first->start();
         it->first->setEnable(false);
@@ -45,20 +45,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateInterface(int id, int x, int y)
 {
-    Trem* t = new Trem (id, 0, 0, Rail(0,0,0,0));
+    Train* t = new Train (id, 0, 0, Rail(0,0,0,0));
     auto it = trains.find(t);
     it->second->setGeometry(x,y,SIZE,SIZE);
 }
 
 void MainWindow::enableTrains(bool b){
-    for (map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it){
+    for (map<Train*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it){
          it->first->setEnable(b);
          it->second->setEnabled(b);
     }
 }
 
 void MainWindow::enableTrain(int id, bool b){
-    Trem* t = new Trem (id, 0, 0, Rail(0,0,0,0));
+    Train* t = new Train (id, 0, 0, Rail(0,0,0,0));
     auto it = trains.find(t);
     it->first->setEnable(b);
     it->second->setEnabled(b);

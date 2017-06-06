@@ -1,42 +1,42 @@
-#include "trem.h"
+#include "train.h"
 #include "sizes.h"
 #include "rail.h"
 
-Trem::Trem(int id, int x, int y, Rail r)
+Train::Train(int id, int x, int y, Rail r)
 {
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 250;
+    speed = 250;
     enable = true;
     this->rail = r;
 }
 
-Trem::~Trem()
+Train::~Train()
 {
     threadTrem.join();
 }
 
-int Trem::getId() const{
+int Train::getId() const{
     return this->id;
 }
 
-void Trem::setVelocidade(int velocidade)
+void Train::setSpeed(int speed)
 {
-    this->velocidade = velocidade;
+    this->speed = speed;
 }
 
-void Trem::setEnable(bool enable)
+void Train::setEnable(bool enable)
 {
     this->enable = enable;
 }
 
-void Trem::start()
+void Train::start()
 {
-    threadTrem = std::thread(&Trem::run,this);
+    threadTrem = std::thread(&Train::run,this);
 }
 
-void Trem::run()
+void Train::run()
 {
     while(true){
         if(enable){
@@ -54,7 +54,7 @@ void Trem::run()
                 y-=10;
             }
         }
-        this_thread::sleep_for(chrono::milliseconds(velocidade));
+        this_thread::sleep_for(chrono::milliseconds(speed));
     }
 }
 

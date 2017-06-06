@@ -10,22 +10,22 @@
 #define SIZE 20
 using namespace std;
 
-class Trem : public QObject
+class Train : public QObject
 {
     Q_OBJECT
 public:
 
     struct CompLessTrain {
-        bool operator()(Trem * t1, const Trem * t2) const{
+        bool operator()(Train * t1, const Train * t2) const{
             return (t1->getId() < t2->getId());
         }
     };
 
-    Trem(int,int,int,Rail);
-    ~Trem();
+    Train(int,int,int,Rail);
+    ~Train();
     void start();
     void run();
-    void setVelocidade(int);
+    void setSpeed(int);
     void setEnable(bool);
     int getId() const;
 
@@ -37,7 +37,7 @@ private:
    int id;
    int x;
    int y;
-   int velocidade;
+   int speed;
    bool enable;
    Rail rail;
 };
