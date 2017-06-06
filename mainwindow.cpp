@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(map<Trem*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it) {
         connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
         it->first->start();
-        it->first->setEnable(true);
+        it->first->setEnable(false);
      }
 }
 
