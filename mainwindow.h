@@ -29,6 +29,8 @@ private:
     map<Train*, QWidget*, Train::CompLessTrain> trains;
     vector<QWidget*> label_trainTrack;
     vector<QWidget*> label_train;
+    vector<QWidget*> label_numberLaps;
+
 };
 
 #endif // MAINWINDOW_H

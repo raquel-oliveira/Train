@@ -9,7 +9,10 @@ Train::Train(int id, int x, int y, Rail r)
     this->y = y;
     speed = 250;
     enable = true;
-    this->rail = r;
+    rail = r;
+    laps = 0;
+    curr_x = x;
+    curr_y = y;
 }
 
 Train::~Train()
@@ -19,6 +22,10 @@ Train::~Train()
 
 int Train::getId() const{
     return this->id;
+}
+
+int Train::getLaps() {
+    return this->laps;
 }
 
 void Train::setSpeed(int speed)
@@ -40,18 +47,21 @@ void Train::run()
 {
     while(true){
         if(enable){
-            emit updateGUI(id,x,y);
-            if (y == rail.ulp().y - (SIZE/2) && x < rail.ulp().x+rail.width-(SIZE/2)){
-                x+=10;
+            emit updateGUI(id,curr_x,curr_y);
+            if (curr_y == rail.ulp().y - (SIZE/2) && curr_x < rail.ulp().x+rail.width-(SIZE/2)){
+                curr_x+=10;
             }
-            else if (x == rail.ulp().x+rail.width - (SIZE/2) && y < rail.ulp().y+rail.height-(SIZE/2)){
-                y+=10;
+            else if (curr_x == rail.ulp().x+rail.width - (SIZE/2) && curr_y < rail.ulp().y+rail.height-(SIZE/2)){
+                curr_y+=10;
             }
-            else if (x > rail.ulp().x-(SIZE/2) && y == rail.ulp().y+rail.height-(SIZE/2)){
-                x-=10;
+            else if (curr_x > rail.ulp().x-(SIZE/2) && curr_y == rail.ulp().y+rail.height-(SIZE/2)){
+                curr_x-=10;
             }
             else{
-                y-=10;
+                curr_y-=10;
+            }
+            if(curr_x == x && curr_y == y){
+                laps++;
             }
         }
         this_thread::sleep_for(chrono::milliseconds(speed));

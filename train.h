@@ -28,6 +28,7 @@ public:
     void setSpeed(int);
     void setEnable(bool);
     int getId() const;
+    int getLaps();
 
 signals:
     void updateGUI(int,int,int);
@@ -40,6 +41,8 @@ private:
    int speed;
    bool enable;
    Rail rail;
+   int laps;
+   int curr_x, curr_y;
 };
 
 #endif // TREM_H

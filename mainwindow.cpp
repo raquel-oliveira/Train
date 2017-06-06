@@ -21,6 +21,15 @@ void MainWindow::initialize(){
     label_trainTrack.push_back(ui->trainTrack05);
     label_trainTrack.push_back(ui->trainTrack06);
     label_trainTrack.push_back(ui->trainTrack07);
+
+    label_numberLaps.push_back(ui->label_nb);
+    label_numberLaps.push_back(ui->nb_train1);
+    label_numberLaps.push_back(ui->nb_train2);
+    label_numberLaps.push_back(ui->nb_train3);
+    label_numberLaps.push_back(ui->nb_train4);
+    label_numberLaps.push_back(ui->nb_train5);
+    label_numberLaps.push_back(ui->nb_train6);
+    label_numberLaps.push_back(ui->nb_train7);
 }
 
 
@@ -41,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(auto it = trains.begin(); it != trains.end(); ++it) {
            connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
            it->first->start();
-           it->first->setEnable(false);
+           it->first->setEnable(true);
     }
 }
 
@@ -55,6 +64,13 @@ void MainWindow::updateInterface(int id, int x, int y)
     Train* t = new Train (id, 0, 0, Rail(0,0,0,0));
     auto it = trains.find(t);
     it->second->setGeometry(x,y,SIZE,SIZE);
+
+    //Update number of laps
+    QString laps = QString::number(it->first->getLaps());
+    QLabel *labelLap = qobject_cast<QLabel *>(label_numberLaps[id]);
+    if (!labelLap)
+       return;
+    labelLap->setText(laps);
 }
 
 void MainWindow::enableTrains(bool b){
