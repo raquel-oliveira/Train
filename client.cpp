@@ -13,12 +13,12 @@
 #include "../Utils/api_gpio/pin.h"
 #include "../Utils/utils.h"
 #include <string>
- 
+
 using namespace std;
 
 #define PORTNUM 4325
 #define PORT_POT 1 //potentiometer
- 
+
 class Mensagem {
     public:
         vector<bool> trainStatus;
@@ -31,7 +31,7 @@ void mainMenu(int selected, bool connected) {
     if(connected) {
         if(selected == 1)
             cout << "> Desconectar do servidor" << endl;
-        else 
+        else
             cout << "  Desconectar do servidor" << endl;
         if(selected == 2)
             cout << "> Ligar todos os trens" << endl;
@@ -57,7 +57,7 @@ void mainMenu(int selected, bool connected) {
     else {
         if(selected == 1)
             cout << "> Conectar ao servidor" << endl;
-        else 
+        else
             cout << "  Conectar ao servidor" << endl;
     }
     if(selected == 7)
@@ -88,7 +88,7 @@ void trainMenu(int selected) {
     system("clear");
     if(selected == 1)
         cout << "> 1" << endl;
-    else 
+    else
         cout << "  1" << endl;
     if(selected == 2)
         cout << "> 2" << endl;
@@ -138,10 +138,10 @@ int chooseTrain(Pin up, Pin down, Pin play) {
             usleep(200000);
             return selected - 1;
         }
-        
+
     }
 }
- 
+
 int main(int argc, char *argv[]) {
     struct sockaddr_in endereco;
     int socketId;
@@ -150,12 +150,12 @@ int main(int argc, char *argv[]) {
     Pin up ("P9_27", Direction::IN, Value::LOW);
     Pin down ("P9_41", Direction::IN, Value::LOW);
     Pin play ("P9_42", Direction::IN, Value::LOW);
- 
+
     //Configurações do endereço
     memset(&endereco, 0, sizeof(endereco));
     endereco.sin_family = AF_INET;
     endereco.sin_port = htons(PORTNUM);
-    endereco.sin_addr.s_addr = inet_addr("192.168.0.175");
+    endereco.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     socketId = ::socket(AF_INET, SOCK_STREAM, 0);
 
@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
         printf("Falha ao executar socket()\n");
         exit(EXIT_FAILURE);
     }
-    
+
     int selected = 1;
     bool connected = false;
     bool quit = false;
@@ -212,14 +212,14 @@ int main(int argc, char *argv[]) {
             if(selected == 1) {
                 if(connected) {
                     connected = false;
-                    //close(socketId);
+                    close(socketId);
                 }
                 else {
                     connected = true;
-                    /*if ( ::connect (socketId, (struct sockaddr *)&endereco, sizeof(struct sockaddr)) == -1 ) {
+                    if ( ::connect (socketId, (struct sockaddr *)&endereco, sizeof(struct sockaddr)) == -1 ) {
                         printf("Falha ao executar connect()\n");
                         exit(EXIT_FAILURE);
-                    }*/
+                    }
                 }
                 mainMenu(selected, connected);
             }
@@ -250,11 +250,13 @@ int main(int argc, char *argv[]) {
             else
                 quit = true;
         }
-        /*bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
-        if (bytesenviados == -1) {
+        if(connected) {
+          bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
+          if (bytesenviados == -1) {
             printf("Falha ao executar send()");
             exit(EXIT_FAILURE);
-        }*/
+          }
+        }
     }
     return 0;
 }
