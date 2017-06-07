@@ -5,6 +5,8 @@
 #include <thread>
 #include <chrono>
 #include "rail.h"
+#include "sizes.h"
+#include <time.h>
 
 //Defize size of train
 #define SIZE 20
@@ -29,6 +31,7 @@ public:
     void setEnable(bool);
     int getId() const;
     int getLaps();
+    double getLastRaceTime();
 
 signals:
     void updateGUI(int,int,int);
@@ -43,6 +46,9 @@ private:
    Rail rail;
    int laps;
    int curr_x, curr_y;
+   vector<double> timeRace;
+   timespec ts_beg;
+   timespec ts_end;
 };
 
 #endif // TREM_H

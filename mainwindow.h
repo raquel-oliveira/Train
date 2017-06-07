@@ -26,11 +26,11 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    map<Train*, QWidget*, Train::CompLessTrain> trains;
+    vector<Train*> trains;
     vector<QWidget*> label_trainTrack;
     vector<QWidget*> label_train;
     vector<QWidget*> label_numberLaps;
-
+    vector<QWidget*> label_lastTime;
 };
 
 #endif // MAINWINDOW_H

@@ -2,8 +2,12 @@
 #include "ui_mainwindow.h"
 #include "rail.h"
 #include <map>
+#include <iostream>
+
 
 void MainWindow::initialize(){
+    trains.push_back(NULL);
+   /*GUI*/
     label_train.push_back(NULL);
     label_train.push_back(ui->train01);
     label_train.push_back(ui->train02);
@@ -30,6 +34,15 @@ void MainWindow::initialize(){
     label_numberLaps.push_back(ui->nb_train5);
     label_numberLaps.push_back(ui->nb_train6);
     label_numberLaps.push_back(ui->nb_train7);
+
+    label_lastTime.push_back(ui->label_lastTime);
+    label_lastTime.push_back(ui->lastTime_train1);
+    label_lastTime.push_back(ui->lastTime_train2);
+    label_lastTime.push_back(ui->lastTime_train3);
+    label_lastTime.push_back(ui->lastTime_train4);
+    label_lastTime.push_back(ui->lastTime_train5);
+    label_lastTime.push_back(ui->lastTime_train6);
+    label_lastTime.push_back(ui->lastTime_train7);
 }
 
 
@@ -44,13 +57,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //Create trains by GUI
     for(int i = 1; i < label_train.size(); i++) {
         label_trainTrack[i]->geometry().getRect(&x, &y, &width, &height);
-        trains[new Train(i,x+SIZE,y-(SIZE/2), Rail(x, y, width, height))] = label_train[i];
+        trains.push_back(new Train(i,x+SIZE,y-(SIZE/2), Rail(x, y, width, height)));
     }
     //Connect
-    for(auto it = trains.begin(); it != trains.end(); ++it) {
-           connect(it->first,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
-           it->first->start();
-           it->first->setEnable(true);
+    for(int i = 1; i < trains.size(); i++) {
+           connect(trains[i],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+           trains[i]->start();
+           trains[i]->setEnable(true);
     }
 }
 
@@ -61,12 +74,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateInterface(int id, int x, int y)
 {
-    Train* t = new Train (id, 0, 0, Rail(0,0,0,0));
-    auto it = trains.find(t);
-    it->second->setGeometry(x,y,SIZE,SIZE);
+    label_train[id]->setGeometry(x,y,SIZE,SIZE);
 
     //Update number of laps
-    QString laps = QString::number(it->first->getLaps());
+    QString laps = QString::number(trains[id]->getLaps());
     QLabel *labelLap = qobject_cast<QLabel *>(label_numberLaps[id]);
     if (!labelLap)
        return;
@@ -74,16 +85,14 @@ void MainWindow::updateInterface(int id, int x, int y)
 }
 
 void MainWindow::enableTrains(bool b){
-    for (map<Train*, QWidget*>::iterator it = trains.begin(); it != trains.end(); ++it){
-         it->first->setEnable(b);
-         it->second->setEnabled(b);
+    for (int i = 1; i < trains.size(); i++) {
+         trains[i]->setEnable(b);
+         label_train[i]->setEnabled(b);
     }
 }
 
 void MainWindow::enableTrain(int id, bool b){
-    Train* t = new Train (id, 0, 0, Rail(0,0,0,0));
-    auto it = trains.find(t);
-    it->first->setEnable(b);
-    it->second->setEnabled(b);
+    trains[id]->setEnable(b);
+    label_train[id]->setEnabled(b);
 }
 
