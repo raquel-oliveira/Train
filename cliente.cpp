@@ -26,18 +26,6 @@ class Mensagem {
         Mensagem() : trainStatus(7), trainSpeeds(7) {}
 };
 
-
-/*void socketHandler(int socketId) {
-    //Enviar uma msg para o cliente que se conectou
-    int bytesenviados;
-    bytesenviados = ::send(socketId,msg.data(),msg.size()+1,0);
-    if (bytesenviados == -1) {
-        printf("Falha ao executar send()");
-        exit(EXIT_FAILURE);
-    }
-    close(socketId);
-} */
-
 void mainMenu(int selected, bool connected) {
     system("clear");
     if(connected) {
@@ -67,7 +55,10 @@ void mainMenu(int selected, bool connected) {
             cout << "  Alterar a velocidade de um trem específico" << endl;
     }
     else {
-        cout << "> Conectar do servidor" << endl;
+        if(selected == 1)
+            cout << "> Conectar ao servidor" << endl;
+        else 
+            cout << "  Conectar ao servidor" << endl;
     }
     if(selected == 7)
         cout << "> Quit" << endl;
@@ -77,17 +68,24 @@ void mainMenu(int selected, bool connected) {
 
 int chooseSpeed(Pin play) {
     float v;
+    int pot;
     while(true) {
-        if(play.getValue())
+        if(play.getValue()) {
+            usleep(200000);
             return v;
+        }
         else {
-            v = (readAnalog(PORT_POT) / 4096 * 290) + 10;
+            usleep(200000);
+            pot = readAnalog(PORT_POT);
+            v = (pot / 4096.0 * 290) + 10;
+            system("clear");
             cout << v << endl;
         }
     }
 }
 
 void trainMenu(int selected) {
+    system("clear");
     if(selected == 1)
         cout << "> 1" << endl;
     else 
@@ -123,19 +121,24 @@ int chooseTrain(Pin up, Pin down, Pin play) {
     trainMenu(selected);
     while(true){
         if(up.getValue()) {
+            usleep(200000);
             if(selected > 1) {
                 selected--;
                 trainMenu(selected);
             }
         }
         else if(down.getValue()) {
+            usleep(200000);
             if(selected < 7) {
                 selected++;
                 trainMenu(selected);
             }
         }
-        else if(play.getValue())
+        else if(play.getValue()) {
+            usleep(200000);
             return selected - 1;
+        }
+        
     }
 }
  
@@ -175,6 +178,7 @@ int main(int argc, char *argv[]) {
     mainMenu(selected, connected);
     while(!quit){
         if(up.getValue()) {
+            usleep(200000);
             if(connected) {
                 if(selected > 1) {
                     selected--;
@@ -188,7 +192,8 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
-        if(down.getValue()) {
+        else if(down.getValue()) {
+            usleep(200000);
             if(connected) {
                 if(selected < 7) {
                     selected++;
@@ -202,7 +207,8 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
-        if(play.getValue()) {
+        else if(play.getValue()) {
+            usleep(200000);
             if(selected == 1) {
                 if(connected) {
                     connected = false;
@@ -239,6 +245,7 @@ int main(int argc, char *argv[]) {
                 int t = chooseTrain(up, down, play);
                 int v = chooseSpeed(play);
                 msg.trainSpeeds[t] = v;
+                mainMenu(selected, connected);
             }
             else
                 quit = true;
@@ -249,10 +256,5 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }*/
     }
-    /*while(1) {
-        thread t(socketHandler,socketId);
-        t.detach();
-        usleep(17000);
-    } */
     return 0;
 }
