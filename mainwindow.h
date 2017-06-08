@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "train.h"
+#include "server.h"
 #include <QMainWindow>
 
 using namespace std;
@@ -31,6 +32,7 @@ private:
     vector<QWidget*> label_train;
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
+    Server *server;
 };
 
 #endif // MAINWINDOW_H

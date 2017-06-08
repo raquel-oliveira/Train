@@ -65,6 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
            trains[i]->start();
            trains[i]->setEnable(true);
     }
+
+    server = new Server();
+    server->start();
 }
 
 MainWindow::~MainWindow()
