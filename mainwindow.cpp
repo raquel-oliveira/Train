@@ -63,8 +63,9 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 1; i < trains.size(); i++) {
            connect(trains[i],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
            trains[i]->start();
-           trains[i]->setEnable(true);
     }
+
+    enableTrains(false);
     server = new Server();
     server->start();
     connect(server,SIGNAL(sendMessage(int, int, int)),SLOT(receiveMessage(int, int, int)));
@@ -122,6 +123,9 @@ void MainWindow::receiveMessage(int command, int train, int speed) {
             enableTrain(train, false);
             break;
         case CHANGE_SPEED:
+            if (train > 0 && train < trains.size()){
+                trains[train]->setSpeed(speed);
+            }
             break;
         case QUIT:
            close();

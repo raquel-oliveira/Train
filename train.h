@@ -7,6 +7,7 @@
 #include "rail.h"
 #include <time.h>
 
+#define CONV 310
 //Defize size of train
 #define SIZE 20
 using namespace std;
