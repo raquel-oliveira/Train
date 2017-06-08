@@ -58,6 +58,7 @@ void Server::socketHandler() {
             else if(byteslidos == 0)
                 break;
             cout << "Servidor recebeu a seguinte msg do cliente: " << msg.command << endl;
+            emit sendMessage(msg);
         }
         close(socketDescriptor);
     }

@@ -65,9 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
            trains[i]->start();
            trains[i]->setEnable(true);
     }
-
     server = new Server();
     server->start();
+    connect(server,SIGNAL(sendMessage(Mensagem)),SLOT(receiveMessage(Mensagem)));
 }
 
 MainWindow::~MainWindow()
@@ -97,5 +97,9 @@ void MainWindow::enableTrains(bool b){
 void MainWindow::enableTrain(int id, bool b){
     trains[id]->setEnable(b);
     label_train[id]->setEnabled(b);
+}
+
+void MainWindow::receiveMessage(Mensagem msg) {
+
 }
 

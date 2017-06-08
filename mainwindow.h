@@ -24,6 +24,7 @@ public slots:
     void enableTrains(bool b);
     void enableTrain(int id, bool b);
     void initialize();
+    void receiveMessage(Mensagem);
 
 private:
     Ui::MainWindow *ui;
