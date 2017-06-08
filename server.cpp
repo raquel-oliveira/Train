@@ -14,6 +14,11 @@ Server::Server()
             exit(EXIT_FAILURE);
         }
         //Conectando o socket a uma porta. Executado apenas no lado servidor
+        int yes=1;
+        if (setsockopt(socketId, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == -1) {
+            perror("setsockopt");
+            exit(1);
+        }
         if (::bind(socketId, (struct sockaddr *)&endereco, sizeof(struct sockaddr)) == -1 ) {
             printf("Falha ao executar bind()\n");
             exit(EXIT_FAILURE);
