@@ -18,52 +18,36 @@ using namespace std;
 
 #define PORTNUM 4325
 #define PORT_POT 1 //potentiometer
+#define DISCONNECT 1
+#define CONNECT 1
+#define TURN_ON_TRAINS 2
+#define TURN_OFF_TRAINS 3
+#define TURN_ON_TRAIN 4
+#define TURN_OFF_TRAIN 5
+#define CHANGE_SPEED 6
+#define QUIT 7
+#define NB_TRAINS 7
 
 class Mensagem {
     public:
         vector<bool> trainStatus;
         vector<int> trainSpeeds;
-        Mensagem() : trainStatus(7), trainSpeeds(7) {}
+        Mensagem() : trainStatus(NB_TRAINS), trainSpeeds(NB_TRAINS) {}
 };
 
 void mainMenu(int selected, bool connected) {
     system("clear");
     if(connected) {
-        if(selected == 1)
-            cout << "> Desconectar do servidor" << endl;
-        else
-            cout << "  Desconectar do servidor" << endl;
-        if(selected == 2)
-            cout << "> Ligar todos os trens" << endl;
-        else
-            cout << "  Ligar todos os trens" << endl;
-        if(selected == 3)
-            cout << "> Desligar todos os trens" << endl;
-        else
-            cout << "  Desligar todos os trens" << endl;
-        if(selected == 4)
-            cout << "> Ligar um trem específico" << endl;
-        else
-            cout << "  Ligar um trem específico" << endl;
-        if(selected == 5)
-            cout << "> Desligar um trem específico" << endl;
-        else
-            cout << "  Desligar um trem específico" << endl;
-        if(selected == 6)
-            cout << "> Alterar a velocidade de um trem específico" << endl;
-        else
-            cout << "  Alterar a velocidade de um trem específico" << endl;
+      cout << (selected== DISCONNECT ? "> Desconectar do servidor\n" : "Desconectar do servidor\n");
+      cout << (selected== TURN_ON_TRAINS ? "> Ligar todos os trens\n" : "Ligar todos os trens\n");
+      cout << (selected== TURN_OFF_TRAINS ? "> Desligar todos os trens\n" : "Desligar todos os trens\n");
+      cout << (selected== TURN_ON_TRAIN ? "> Ligar um trem específico\n" : "Ligar um trem específico\n");
+      cout << (selected== TURN_OFF_TRAIN ? "> Desligar um trem específico\n" : "Desligar um trem específico\n");
+      cout << (selected== CHANGE_SPEED ? "> Alterar a velocidade de um trem específico\n" : "Alterar a velocidade de um trem específico\n");
+    } else {
+      cout << (selected== CONNECT ? "> Conectar ao servidor\n" : "Conectar ao servidor\n");
     }
-    else {
-        if(selected == 1)
-            cout << "> Conectar ao servidor" << endl;
-        else
-            cout << "  Conectar ao servidor" << endl;
-    }
-    if(selected == 7)
-        cout << "> Quit" << endl;
-    else
-        cout << "  Quit" << endl;
+    cout << (selected== QUIT ? "> Quit\n" : "Quit\n");
 }
 
 int chooseSpeed(Pin play) {
@@ -86,34 +70,12 @@ int chooseSpeed(Pin play) {
 
 void trainMenu(int selected) {
     system("clear");
-    if(selected == 1)
-        cout << "> 1" << endl;
-    else
-        cout << "  1" << endl;
-    if(selected == 2)
-        cout << "> 2" << endl;
-    else
-        cout << "  2" << endl;
-    if(selected == 3)
-        cout << "> 3" << endl;
-    else
-        cout << "  3" << endl;
-    if(selected == 4)
-        cout << "> 4" << endl;
-    else
-        cout << "  4" << endl;
-    if(selected == 5)
-        cout << "> 5" << endl;
-    else
-        cout << "  5" << endl;
-    if(selected == 6)
-        cout << "> 6" << endl;
-    else
-        cout << "  6" << endl;
-    if(selected == 7)
-        cout << "> 7" << endl;
-    else
-        cout << "  7" << endl;
+    for(int i = 1; i <= NB_TRAINS; i++){
+      if(selected == i){
+        cout << "> ";
+      }
+      cout << i << endl;
+    }
 }
 
 int chooseTrain(Pin up, Pin down, Pin play) {
@@ -223,25 +185,25 @@ int main(int argc, char *argv[]) {
                 }
                 mainMenu(selected, connected);
             }
-            else if(selected == 2) {
-                for(int i = 0; i < 7; i++)
+            else if(selected == TURN_ON_TRAINS) {
+                for(int i = 0; i < NB_TRAINS; i++)
                     msg.trainStatus[i] = true;
             }
-            else if(selected == 3) {
-                for(int i = 0; i < 7; i++)
+            else if(selected == TURN_OFF_TRAINS) {
+                for(int i = 0; i < NB_TRAINS; i++)
                     msg.trainStatus[i] = false;
             }
-            else if(selected == 4) {
+            else if(selected == TURN_ON_TRAIN) {
                 int t = chooseTrain(up, down, play);
                 msg.trainStatus[t] = true;
                 mainMenu(selected, connected);
             }
-            else if(selected == 5) {
+            else if(selected == TURN_OFF_TRAIN) {
                 int t = chooseTrain(up, down, play);
                 msg.trainStatus[t] = false;
                 mainMenu(selected, connected);
             }
-            else if(selected == 6) {
+            else if(selected == CHANGE_SPEED) {
                 int t = chooseTrain(up, down, play);
                 int v = chooseSpeed(play);
                 msg.trainSpeeds[t] = v;
