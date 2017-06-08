@@ -5,7 +5,6 @@
 #include <thread>
 #include <chrono>
 #include "rail.h"
-#include "sizes.h"
 #include <time.h>
 
 //Defize size of train
