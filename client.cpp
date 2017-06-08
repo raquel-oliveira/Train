@@ -249,13 +249,13 @@ int main(int argc, char *argv[]) {
             }
             else
                 quit = true;
-        }
-        if(connected) {
-          bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
-          if (bytesenviados == -1) {
-            printf("Falha ao executar send()");
-            exit(EXIT_FAILURE);
-          }
+            if(connected && selected > 1 && selected < 7) {
+                bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
+                if (bytesenviados == -1) {
+                    printf("Falha ao executar send()");
+                    exit(EXIT_FAILURE);
+                }
+            }
         }
     }
     return 0;

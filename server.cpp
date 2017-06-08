@@ -7,12 +7,45 @@
 #include <unistd.h>     //close
 #include <iostream>
 #include <vector>
+#include <thread>
 
 using namespace std;
 
 #define PORTNUM 4325
 
-int main(int argc, char *argv[]){
+class Mensagem {
+    public:
+      vector<bool> trainStatus;
+      vector<int> trainSpeeds;
+      Mensagem() : trainStatus(7), trainSpeeds(7) {}
+};
+
+void socketHandler(int socketDescriptor,Mensagem mensagem) {
+    int byteslidos = 1;
+
+    //Verificando erros
+    if ( socketDescriptor == -1) {
+        printf("Falha ao executar accept()");
+        exit(EXIT_FAILURE);
+    }
+
+    while(byteslidos != 0) {
+
+        //receber uma msg do cliente
+        byteslidos = recv(socketDescriptor,&mensagem,sizeof(mensagem),0);
+        if (byteslidos == -1) {
+            printf("Falha ao executar recv()");
+            exit(EXIT_FAILURE);
+        }
+        else if(byteslidos == 0)
+            break;
+        cout << "Servidor recebeu a seguinte msg do cliente: " << mensagem.trainStatus.size() << " " << mensagem.trainSpeeds.size() << endl;
+
+    }
+    close(socketDescriptor);
+}
+
+int main(int argc, char *argv[]) {
     //variáveis do servidor
     struct sockaddr_in endereco;
     int socketId;
@@ -21,6 +54,9 @@ int main(int argc, char *argv[]){
     struct sockaddr_in enderecoCliente;
     socklen_t tamanhoEnderecoCliente = sizeof(struct sockaddr);
     int conexaoClienteId;
+
+    //mensagem enviada pelo cliente
+    Mensagem mensagem;
 
     /*
     * Configurações do endereço
@@ -61,5 +97,10 @@ int main(int argc, char *argv[]){
     while(1) {
         //Servidor fica bloqueado esperando uma conexão do cliente
         conexaoClienteId = ::accept( socketId,(struct sockaddr *) &enderecoCliente,&tamanhoEnderecoCliente );
+        printf("Servidor: recebeu conexão de %s\n", inet_ntoa(enderecoCliente.sin_addr));
+
+        //disparar a thread
+        thread t(socketHandler,conexaoClienteId,mensagem);
+        t.detach();
     }
 }
