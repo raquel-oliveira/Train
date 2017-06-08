@@ -30,9 +30,11 @@ using namespace std;
 
 class Mensagem {
     public:
-        vector<bool> trainStatus;
-        vector<int> trainSpeeds;
-        Mensagem() : trainStatus(NB_TRAINS), trainSpeeds(NB_TRAINS) {}
+        int command;
+        int train;
+        int speed;
+        Mensagem() {};
+        Mensagem (int c, int t, int s) : command{c}, train{t}, speed{s} {}
 };
 
 void mainMenu(int selected, bool connected) {
@@ -122,10 +124,9 @@ int main(int argc, char *argv[]) {
     socketId = ::socket(AF_INET, SOCK_STREAM, 0);
 
     Mensagem msg;
-    for(int i = 0; i < 7; i++) {
-        msg.trainStatus[i] = false;
-        msg.trainSpeeds[i] = 100;
-    }
+    msg.train = 0;
+    msg.speed = 100;
+
     int bytesenviados;
 
     //Verificar erros
@@ -185,38 +186,26 @@ int main(int argc, char *argv[]) {
                 }
                 mainMenu(selected, connected);
             }
-            else if(selected == TURN_ON_TRAINS) {
-                for(int i = 0; i < NB_TRAINS; i++)
-                    msg.trainStatus[i] = true;
-            }
-            else if(selected == TURN_OFF_TRAINS) {
-                for(int i = 0; i < NB_TRAINS; i++)
-                    msg.trainStatus[i] = false;
-            }
-            else if(selected == TURN_ON_TRAIN) {
-                int t = chooseTrain(up, down, play);
-                msg.trainStatus[t] = true;
+            else {
+              msg.command = selected;
+              if(selected == TURN_ON_TRAIN || selected == TURN_OFF_TRAIN) {
+                  msg.train = chooseTrain(up, down, play);
+                  mainMenu(selected, connected);
+              } else if (selected == CHANGE_SPEED){
+                msg.train = chooseTrain(up, down, play);
+                msg.speed = chooseSpeed(play);
                 mainMenu(selected, connected);
-            }
-            else if(selected == TURN_OFF_TRAIN) {
-                int t = chooseTrain(up, down, play);
-                msg.trainStatus[t] = false;
-                mainMenu(selected, connected);
-            }
-            else if(selected == CHANGE_SPEED) {
-                int t = chooseTrain(up, down, play);
-                int v = chooseSpeed(play);
-                msg.trainSpeeds[t] = v;
-                mainMenu(selected, connected);
-            }
-            else
+              } else if (selected == QUIT){
                 quit = true;
-            if(connected && selected > 1 && selected < 7) {
-                bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
-                if (bytesenviados == -1) {
-                    printf("Falha ao executar send()");
-                    exit(EXIT_FAILURE);
-                }
+              }
+
+              if(connected && selected > 1 && selected < 7) {
+                  bytesenviados = ::send(socketId,&msg,sizeof(msg),0);
+                  if (bytesenviados == -1) {
+                      printf("Falha ao executar send()");
+                      exit(EXIT_FAILURE);
+                  }
+              }
             }
         }
     }

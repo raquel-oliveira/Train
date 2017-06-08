@@ -15,9 +15,11 @@ using namespace std;
 
 class Mensagem {
     public:
-      vector<bool> trainStatus;
-      vector<int> trainSpeeds;
-      Mensagem() : trainStatus(7), trainSpeeds(7) {}
+        int command;
+        int train;
+        int speed;
+        Mensagem() {}
+        Mensagem (int c, int t, int s) : command{c}, train{t}, speed{s} {}
 };
 
 void socketHandler(int socketDescriptor,Mensagem mensagem) {
@@ -39,7 +41,7 @@ void socketHandler(int socketDescriptor,Mensagem mensagem) {
         }
         else if(byteslidos == 0)
             break;
-        cout << "Servidor recebeu a seguinte msg do cliente: " << mensagem.trainStatus.size() << " " << mensagem.trainSpeeds.size() << endl;
+        cout << "Servidor recebeu a seguinte msg do cliente: " << mensagem.command << endl;
 
     }
     close(socketDescriptor);
