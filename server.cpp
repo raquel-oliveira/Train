@@ -39,7 +39,7 @@ void Server::socketHandler() {
     while(1) {
         //Servidor fica bloqueado esperando uma conexão do cliente
         socketDescriptor = ::accept( socketId,(struct sockaddr *) &enderecoCliente,&tamanhoEnderecoCliente );
-        cout << "recebeu conexao" << endl;
+        cout << "Cliente conectado" << endl;
         //Verificando erros
         if ( socketDescriptor == -1) {
             printf("Falha ao executar accept()");
@@ -57,8 +57,7 @@ void Server::socketHandler() {
             }
             else if(byteslidos == 0)
                 break;
-            cout << "Servidor recebeu a seguinte msg do cliente: " << msg.command << endl;
-            emit sendMessage(msg);
+            emit sendMessage(msg.command, msg.train, msg.speed);
         }
         close(socketDescriptor);
     }

@@ -21,10 +21,10 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
-    void enableTrains(bool b);
-    void enableTrain(int id, bool b);
+    void enableTrains(bool);
+    void enableTrain(int, bool);
     void initialize();
-    void receiveMessage(Mensagem);
+    void receiveMessage(int, int, int);
 
 private:
     Ui::MainWindow *ui;

@@ -22,7 +22,7 @@ public:
     void socketHandler();
 
 signals:
-    void sendMessage(Mensagem);
+    void sendMessage(int, int, int);
 
 private:
     struct sockaddr_in endereco;

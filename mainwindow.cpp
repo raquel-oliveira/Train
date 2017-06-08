@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     server = new Server();
     server->start();
-    connect(server,SIGNAL(sendMessage(Mensagem)),SLOT(receiveMessage(Mensagem)));
+    connect(server,SIGNAL(sendMessage(int, int, int)),SLOT(receiveMessage(int, int, int)));
 }
 
 MainWindow::~MainWindow()
@@ -95,11 +95,38 @@ void MainWindow::enableTrains(bool b){
 }
 
 void MainWindow::enableTrain(int id, bool b){
-    trains[id]->setEnable(b);
-    label_train[id]->setEnabled(b);
+    if (id > 0 && id < trains.size()){
+        trains[id]->setEnable(b);
+        label_train[id]->setEnabled(b);
+    }
 }
 
-void MainWindow::receiveMessage(Mensagem msg) {
-
+void MainWindow::receiveMessage(int command, int train, int speed) {
+    switch (command) {
+        case DISCONNECT:
+            break;
+        case TURN_ON_TRAINS:
+            cout << "Ligar todos os trens" << endl;
+            enableTrains(true);
+            break;
+        case TURN_OFF_TRAINS:
+            cout << "Desligar todos os trens" << endl;
+            enableTrains(false);
+            break;
+        case TURN_ON_TRAIN:
+            cout << "Ligar trem "<< train << endl;
+            enableTrain(train, true);
+            break;
+        case TURN_OFF_TRAIN:
+            cout << "Desligar trem "<< train << endl;
+            enableTrain(train, false);
+            break;
+        case CHANGE_SPEED:
+            break;
+        case QUIT:
+           close();
+            break;
+        }
+    cout << "acabei finalizar msg" << endl;
 }
 
