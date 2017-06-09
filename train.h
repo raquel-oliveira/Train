@@ -32,6 +32,7 @@ public:
     int getId() const;
     int getLaps();
     double getLastRaceTime();
+    Rail getRail();
 
 signals:
     void updateGUI(int,int,int);

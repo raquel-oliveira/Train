@@ -4,9 +4,8 @@
 Parameters:
   key_t key: key for creating semaphores
   int initialValue: initial value of the semaphore's counter (1)
-  int flags: permission flags
  */
-Semaphore::Semaphore(key_t key, int initialValue, int flags){
+Semaphore::Semaphore(key_t key, int initialValue){
   //Allocating one semaphore
   semaphoreId = semget(key,1,IPC_CREAT|0600);
   //Verifying errors

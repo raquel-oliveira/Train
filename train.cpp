@@ -28,6 +28,10 @@ int Train::getLaps() {
     return this->laps;
 }
 
+Rail Train::getRail(){
+    return this->rail;
+}
+
 void Train::setSpeed(int speed)
 {
     this->speed = speed;

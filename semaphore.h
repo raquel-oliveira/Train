@@ -11,7 +11,7 @@
 class Semaphore
 {
 public:
-    Semaphore(key_t, int, int);
+    Semaphore(key_t, int);
     ~Semaphore();
     void P();
     void V();

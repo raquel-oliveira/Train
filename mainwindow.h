@@ -3,6 +3,7 @@
 
 #include "train.h"
 #include "server.h"
+#include "semaphore.h"
 #include <QMainWindow>
 
 using namespace std;
@@ -21,9 +22,6 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
-    void enableTrains(bool);
-    void enableTrain(int, bool);
-    void initialize();
     void receiveMessage(int, int, int);
 
 private:
@@ -34,6 +32,11 @@ private:
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
     Server *server;
+    vector<Semaphore> sems;
+    void enableTrains(bool);
+    void enableTrain(int, bool);
+    void initialize();
+    void fillCR();
 };
 
 #endif // MAINWINDOW_H
