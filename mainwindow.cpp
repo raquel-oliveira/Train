@@ -1,8 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "rail.h"
-#include <map>
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,13 +14,15 @@ MainWindow::MainWindow(QWidget *parent) :
         trains.push_back(new Train(i,0,0, new Rail(x, y, width, height)));
     }
 
-    //Alimentar regiões criticas.
+    //Creation of critical regions and update position
     fillCR();
 
     //Connect
     for(int i = 1; i < trains.size(); i++) {
            connect(trains[i],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
            connect(trains[i],SIGNAL(updateGUI(int,int)),SLOT(updateSem(int,int)));
+           updateInterface(i); //to initialize
+           connect(trains[i],SIGNAL(updateGUI(int)),SLOT(updateInterface(int)));
            trains[i]->start();
     }
 
@@ -39,10 +37,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateInterface(int id, int x, int y)
-{
-    label_train[id]->setGeometry(x,y,SIZE,SIZE);
-
+void MainWindow::updateInterface(int id){
     //Update number of laps
     QString laps = QString::number(trains[id]->getLaps());
     QLabel *labelLap = qobject_cast<QLabel *>(label_numberLaps[id]);
@@ -65,6 +60,11 @@ void MainWindow::updateInterface(int id, int x, int y)
     labelMediaTime->setText(average);
 }
 
+void MainWindow::updateInterface(int id, int x, int y)
+{
+    label_train[id]->setGeometry(x,y,SIZE,SIZE);
+}
+
 void MainWindow::updateSem(int id, int flag){
     if (id >= 0 && id < label_sem.size()){
         QLabel *pLabel = qobject_cast<QLabel *>(label_sem[id]);
@@ -77,8 +77,6 @@ void MainWindow::updateSem(int id, int flag){
         }
     }
 }
-
-
 
 void MainWindow::enableTrains(bool b){
     for (int i = 1; i < trains.size(); i++) {

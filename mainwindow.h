@@ -4,6 +4,10 @@
 #include "train.h"
 #include "server.h"
 #include "semaphore.h"
+#include "ui_mainwindow.h"
+#include "rail.h"
+#include <map>
+#include <iostream>
 #include <QMainWindow>
 
 using namespace std;
@@ -22,8 +26,9 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
-    void updateSem(int, int);
+    void updateSem(int, int); //after V/P
     void receiveMessage(int, int, int);
+    void updateInterface(int); //after a lap
 
 private:
     Ui::MainWindow *ui;

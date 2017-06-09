@@ -1,6 +1,4 @@
 #include "train.h"
-#include "semaphore.h"
-#include <iostream>
 
 Train::Train(int id, int x, int y, Rail* r)
 {
@@ -212,10 +210,11 @@ void Train::run()
             }
             if(curr_x == x && curr_y == y){
                 laps++;
-
                 clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
                 timeRace.push_back((double)(ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9);
                 clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
+                emit updateGUI(id);
+
             }
         }
         this_thread::sleep_for(chrono::milliseconds(CONV-speed));

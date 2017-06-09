@@ -5,9 +5,11 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "rail.h"
+#include <iostream>
 #include <time.h>
 #include <queue>
+#include "semaphore.h"
+#include "rail.h"
 
 #define CONV 310
 //Defize size of train
@@ -41,6 +43,7 @@ public:
 signals:
     void updateGUI(int,int,int); //update trem
     void updateGUI(int,int); //update semaphore
+    void updateGUI(int); //update after lap
 
 private:
    std::thread threadTrem;
