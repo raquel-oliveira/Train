@@ -30,6 +30,7 @@ public slots:
     void receiveMessage(int, int, int);
     void updateInterface(int); //after a lap
     void enableTrain(int, bool);
+    void updateLog(int,int,int);
 
 private:
     Ui::MainWindow *ui;

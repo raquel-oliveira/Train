@@ -47,6 +47,7 @@ signals:
     void updateGUI(int,int); //update semaphore
     void updateGUI(int); //update after lap
     void updateGUI(int, bool); //enable
+    void updateLog(int,int,int);
 
 private:
    std::thread threadTrem;

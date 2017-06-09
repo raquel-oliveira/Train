@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
            updateInterface(i); //to initialize
            connect(trains[i],SIGNAL(updateGUI(int, bool)),SLOT(enableTrain(int, bool)));
            connect(trains[i],SIGNAL(updateGUI(int)),SLOT(updateInterface(int)));
+           connect(trains[i],SIGNAL(updateLog(int,int,int)),SLOT(updateLog(int,int,int)));
            trains[i]->start();
     }
 
@@ -86,16 +87,26 @@ void MainWindow::updateSem(int id, int flag){
     }
 }
 
-void MainWindow::enableTrain(int id, bool b){
-    if (id > 0 && id < trains.size()){
-        label_train[id]->setEnabled(b);
-    }
+void MainWindow::updateLog(int trainId, int semId, int semCounter) {
+    string s;
+    if(semCounter == 1)
+        s = "Trem " + to_string(trainId) + " deu V no semáforo " + to_string(semId) + ".";
+    else
+        s = "Trem " + to_string(trainId) + " deu P no semáforo " + to_string(semId) + ".";
+    QString Qs = QString::fromStdString(s);
+    ui->listWidget->addItem(Qs);
 }
 
 void MainWindow::enableTrains(bool b){
     for (int i = 1; i < trains.size(); i++) {
         //enableTrain(i, b);
         trains[i]->setEnable(b);
+    }
+}
+
+void MainWindow::enableTrain(int id, bool b){
+    if (id > 0 && id < trains.size()){
+        label_train[id]->setEnabled(b);
     }
 }
 
