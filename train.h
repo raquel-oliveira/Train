@@ -33,6 +33,7 @@ public:
     int getLaps();
     double getLastRaceTime();
     Rail getRail();
+    void init(int, int);
 
 signals:
     void updateGUI(int,int,int);

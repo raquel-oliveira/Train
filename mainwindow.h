@@ -37,6 +37,7 @@ private:
     void enableTrain(int, bool);
     void initialize();
     void fillCR();
+    const void initTrain(int, const int, const int);
 };
 
 #endif // MAINWINDOW_H

@@ -15,6 +15,14 @@ Train::Train(int id, int x, int y, Rail r)
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
 }
 
+//gambiarra init
+void Train::init(int x, int y){
+    this->x = x;
+    this->y = y;
+    curr_x = x;
+    curr_y = y;
+}
+
 Train::~Train()
 {
     threadTrem.join();

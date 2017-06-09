@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Create trains by GUI
     for(int i = 1; i < label_train.size(); i++) {
         label_trainTrack[i]->geometry().getRect(&x, &y, &width, &height);
-        trains.push_back(new Train(i,x+SIZE,y-(SIZE/2), Rail(x, y, width, height)));
+        trains.push_back(new Train(i,0,0, Rail(x, y, width, height)));
     }
 
     //Alimentar regiões criticas.
@@ -86,6 +86,7 @@ void MainWindow::receiveMessage(int command, int train, int speed) {
             break;
         case CHANGE_SPEED:
             if (train > 0 && train < trains.size()){
+                cout << "Mudar velocidade do trem "<< train << endl;
                 trains[train]->setSpeed(speed);
             }
             break;
@@ -93,7 +94,13 @@ void MainWindow::receiveMessage(int command, int train, int speed) {
            close();
             break;
         }
-    cout << "acabei finalizar msg" << endl;
+}
+
+const void MainWindow::initTrain(int id, const int x, const int y) {
+    trains[id]->init(x, y);
+    //label_train[id]->geometry().setX(x);
+    //label_train[id]->geometry().setY(y);
+    label_train[id]->setGeometry(x, y, SIZE, SIZE);
 }
 
 void MainWindow::initialize(){
@@ -150,28 +157,35 @@ void MainWindow::initialize(){
 
 void MainWindow::fillCR(){
     //Train 1
+    initTrain(1, 60, 160);
     trains[1]->getRail().addCR(Position(180,20), Position(180,130), &sems[0]); //RC1
     trains[1]->getRail().addCR(Position(180,240), Position(180,350), &sems[7]); //RC8
     //Train 2
+    initTrain(2, 330, 10);
     trains[2]->getRail().addCR(Position(510,20), Position(510,130), &sems[1]); //RC2
     trains[2]->getRail().addCR(Position(510,130), Position(180,130), &sems[3]); //RC4
     trains[2]->getRail().addCR(Position(180,130), Position(180,20), &sems[0]); //RC1
     //Train 3
+    initTrain(3, 730, 10);
     trains[3]->getRail().addCR(Position(840,20), Position(840,130), &sems[2]); //RC3
     trains[3]->getRail().addCR(Position(675,130), Position(510,130), &sems[4]); //RC5
     trains[3]->getRail().addCR(Position(510,130), Position(510,20), &sems[1]); //RC2
     //Train 4
+    initTrain(4, 940, 170);
     trains[4]->getRail().addCR(Position(840,350), Position(840,210), &sems[9]); //RC10
     trains[4]->getRail().addCR(Position(840,130), Position(180,20), &sems[2]); //RC3
     //Train 5
+    initTrain(5, 690, 340);
     trains[5]->getRail().addCR(Position(510,350), Position(510,240), &sems[8]); //RC9
     trains[5]->getRail().addCR(Position(510,240), Position(675,240), &sems[6]); //RC7
     trains[5]->getRail().addCR(Position(840,210), Position(840,350), &sems[9]); //RC10
     //Train 6
+    initTrain(6, 320, 340);
     trains[6]->getRail().addCR(Position(180,350), Position(180,240), &sems[7]); //RC8
     trains[6]->getRail().addCR(Position(345,240), Position(510,240), &sems[5]); //RC6
     trains[6]->getRail().addCR(Position(510,240), Position(510,350), &sems[8]); //RC9
     //Train 7
+    initTrain(7, 665, 150);
     trains[7]->getRail().addCR(Position(180,130), Position(510,130), &sems[3]); //RC4
     trains[7]->getRail().addCR(Position(510,130), Position(675,130), &sems[4]); //RC5
     trains[7]->getRail().addCR(Position(675,240), Position(510,240), &sems[6]); //RC7
