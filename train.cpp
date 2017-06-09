@@ -153,7 +153,7 @@ void Train::run()
                 //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
             }
         }
-        this_thread::sleep_for(chrono::milliseconds(speed));
+        this_thread::sleep_for(chrono::milliseconds(CONV-speed));
     }
 }
 
