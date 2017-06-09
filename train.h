@@ -39,7 +39,8 @@ public:
     void init(int, int);
 
 signals:
-    void updateGUI(int,int,int);
+    void updateGUI(int,int,int); //update trem
+    void updateGUI(int,int); //update semaphore
 
 private:
    std::thread threadTrem;

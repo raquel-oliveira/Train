@@ -22,6 +22,7 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
+    void updateSem(int, int);
     void receiveMessage(int, int, int);
 
 private:
@@ -32,6 +33,7 @@ private:
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
     vector<QWidget*> label_mediaTime;
+    vector<QWidget*> label_sem;
     Server *server;
     vector<Semaphore*> sems;
     void enableTrains(bool);

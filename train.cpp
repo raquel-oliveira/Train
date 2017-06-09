@@ -1,4 +1,5 @@
 #include "train.h"
+#include "semaphore.h"
 #include <iostream>
 
 Train::Train(int id, int x, int y, Rail* r)
@@ -12,7 +13,7 @@ Train::Train(int id, int x, int y, Rail* r)
     laps = 0;
     curr_x = x;
     curr_y = y;
-    //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
 }
 
 //gambiarra init
@@ -88,14 +89,16 @@ void Train::run()
             if (curr_y == rail->ulp().y - (SIZE/2) && curr_x < rail->ulp().x+rail->width-(SIZE/2)){
                 if(curr_y == rail->getCR(nextCR)->p1.y - (SIZE/2) && curr_x == rail->getCR(nextCR)->p1.x - SIZE){
                     rail->getCR(nextCR)->sem->P();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.push(nextCR);
-                    if(nextCR == rail->getCRSize() - 1)
+                    if(nextCR == rail->getCRSize()-1)
                         nextCR = 0;
                     else
                         nextCR++;
                 }
                 else if(entered.size() > 0 && curr_y == rail->getCR(entered.front())->p2.y - (SIZE/2) && curr_x == rail->getCR(entered.front())->p2.x) {
                     rail->getCR(entered.front())->sem->V();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.pop();
                 }
                 curr_x+=10;
@@ -103,14 +106,16 @@ void Train::run()
             else if (curr_x == rail->ulp().x+rail->width - (SIZE/2) && curr_y < rail->ulp().y+rail->height-(SIZE/2)){
                 if(curr_x == rail->getCR(nextCR)->p1.x - (SIZE/2) && curr_y == rail->getCR(nextCR)->p1.y - SIZE){
                     rail->getCR(nextCR)->sem->P();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.push(nextCR);
-                    if(nextCR == rail->getCRSize() - 1)
+                    if(nextCR == rail->getCRSize()-1)
                         nextCR = 0;
                     else
                         nextCR++;
                 }
                 else if(entered.size() > 0 && curr_x == rail->getCR(entered.front())->p2.x - (SIZE/2) && curr_y == rail->getCR(entered.front())->p2.y) {
                     rail->getCR(entered.front())->sem->V();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.pop();
                 }
                 curr_y+=10;
@@ -118,6 +123,7 @@ void Train::run()
             else if (curr_x > rail->ulp().x-(SIZE/2) && curr_y == rail->ulp().y+rail->height-(SIZE/2)){
                 if(curr_y == rail->getCR(nextCR)->p1.y - (SIZE/2) && curr_x == rail->getCR(nextCR)->p1.x){
                     rail->getCR(nextCR)->sem->P();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.push(nextCR);
                     if(nextCR == rail->getCRSize() - 1)
                         nextCR = 0;
@@ -126,6 +132,7 @@ void Train::run()
                 }
                 else if(entered.size() > 0 && curr_y == rail->getCR(entered.front())->p2.y - (SIZE/2) && curr_x == rail->getCR(entered.front())->p2.x - SIZE) {
                     rail->getCR(entered.front())->sem->V();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.pop();
                 }
                 curr_x-=10;
@@ -133,6 +140,7 @@ void Train::run()
             else{
                 if(curr_x == rail->getCR(nextCR)->p1.x - (SIZE/2) && curr_y == rail->getCR(nextCR)->p1.y){
                     rail->getCR(nextCR)->sem->P();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.push(nextCR);
                     if(nextCR == rail->getCRSize() - 1)
                         nextCR = 0;
@@ -141,6 +149,7 @@ void Train::run()
                 }
                 else if(entered.size() > 0 && curr_x == rail->getCR(entered.front())->p2.x - (SIZE/2) && curr_y == rail->getCR(entered.front())->p2.y - SIZE) {
                     rail->getCR(entered.front())->sem->V();
+                    emit updateGUI(rail->getCR(nextCR)->sem->getId(), rail->getCR(nextCR)->sem->getCounter());
                     entered.pop();
                 }
                 curr_y-=10;
@@ -148,9 +157,9 @@ void Train::run()
             if(curr_x == x && curr_y == y){
                 laps++;
 
-                //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
-                timeRace.push_back((double)(ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9);
-                //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
+                clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
+                timeRace.push_back((double)((ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9));
+                clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
             }
         }
         this_thread::sleep_for(chrono::milliseconds(CONV-speed));

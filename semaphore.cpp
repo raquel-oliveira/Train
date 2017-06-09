@@ -5,7 +5,8 @@ Parameters:
   key_t key: key for creating semaphores
   int initialValue: initial value of the semaphore's counter (1)
  */
-Semaphore::Semaphore(key_t key, int initialValue){
+Semaphore::Semaphore(key_t key, int initialValue, int id){
+  this->id = id;
   //Allocating one semaphore
   semaphoreId = semget(key,1,IPC_CREAT|0600);
   //Verifying errors
@@ -60,6 +61,12 @@ int Semaphore::getSemaphoreId(){
   return semaphoreId;
 }
 
+/*
+Returns the private attribute id
+*/
+int Semaphore::getId(){
+  return id;
+}
 
 /*
 Returns the semaphore's counter

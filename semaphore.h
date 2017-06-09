@@ -8,20 +8,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class Semaphore
-{
-public:
-    Semaphore(key_t, int);
-    ~Semaphore();
-    void P();
-    void V();
-    int getSemaphoreId();
-    int getCounter();
+class Semaphore {
+    public:
+        Semaphore(key_t, int, int);
+        ~Semaphore();
+        void P();
+        void V();
+        int getSemaphoreId();
+        int getCounter();
+        int getId();
 
-private:
-  union semun{int val;} arg;
-  int semaphoreId;
-  struct sembuf operationStructure;
+    private:
+      union semun{int val;} arg;
+      int semaphoreId;
+      int id;
+      struct sembuf operationStructure;
 };
+
 
 #endif // SEMAPHORE_H

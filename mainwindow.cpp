@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Connect
     for(int i = 1; i < trains.size(); i++) {
            connect(trains[i],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+           connect(trains[i],SIGNAL(updateGUI(int,int)),SLOT(updateSem(int,int)));
            trains[i]->start();
     }
 
@@ -63,6 +64,21 @@ void MainWindow::updateInterface(int id, int x, int y)
        return;
     labelMediaTime->setText(average);
 }
+
+void MainWindow::updateSem(int id, int flag){
+    if (id >= 0 && id < label_sem.size()){
+        QLabel *pLabel = qobject_cast<QLabel *>(label_sem[id]);
+        if (flag == 1){
+            pLabel->setStyleSheet("QLabel { background-color : white;}");
+        } else if (flag == 0) {
+            pLabel->setStyleSheet("QLabel { background-color : black;}");
+        } else{
+            pLabel->setStyleSheet("QLabel { background-color : pink;}");
+        }
+    }
+}
+
+
 
 void MainWindow::enableTrains(bool b){
     for (int i = 1; i < trains.size(); i++) {
@@ -165,16 +181,27 @@ void MainWindow::initialize(){
     label_mediaTime.push_back(ui->mediaTime_train6);
     label_mediaTime.push_back(ui->mediaTime_train7);
 
-    sems.push_back(new Semaphore(1234,1));
-    sems.push_back(new Semaphore(1235,1));
-    sems.push_back(new Semaphore(1236,1));
-    sems.push_back(new Semaphore(1237,1));
-    sems.push_back(new Semaphore(1238,1));
-    sems.push_back(new Semaphore(1239,1));
-    sems.push_back(new Semaphore(1240,1));
-    sems.push_back(new Semaphore(1241,1));
-    sems.push_back(new Semaphore(1242,1));
-    sems.push_back(new Semaphore(1243,1));
+    sems.push_back(new Semaphore(1234,1,0));
+    sems.push_back(new Semaphore(1235,1,1));
+    sems.push_back(new Semaphore(1236,1,2));
+    sems.push_back(new Semaphore(1237,1,3));
+    sems.push_back(new Semaphore(1238,1,4));
+    sems.push_back(new Semaphore(1239,1,5));
+    sems.push_back(new Semaphore(1240,1,6));
+    sems.push_back(new Semaphore(1241,1,7));
+    sems.push_back(new Semaphore(1242,1,8));
+    sems.push_back(new Semaphore(1243,1,9));
+
+    label_sem.push_back(ui->sem0);
+    label_sem.push_back(ui->sem1);
+    label_sem.push_back(ui->sem2);
+    label_sem.push_back(ui->sem3);
+    label_sem.push_back(ui->sem4);
+    label_sem.push_back(ui->sem5);
+    label_sem.push_back(ui->sem6);
+    label_sem.push_back(ui->sem7);
+    label_sem.push_back(ui->sem8);
+    label_sem.push_back(ui->sem9);
 }
 
 void MainWindow::fillCR(){
