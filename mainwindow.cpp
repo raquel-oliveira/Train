@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
            connect(trains[i],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
            connect(trains[i],SIGNAL(updateGUI(int,int)),SLOT(updateSem(int,int)));
            updateInterface(i); //to initialize
+           connect(trains[i],SIGNAL(updateGUI(int, bool)),SLOT(enableTrain(int, bool)));
            connect(trains[i],SIGNAL(updateGUI(int)),SLOT(updateInterface(int)));
            trains[i]->start();
     }
@@ -85,17 +86,16 @@ void MainWindow::updateSem(int id, int flag){
     }
 }
 
-void MainWindow::enableTrains(bool b){
-    for (int i = 1; i < trains.size(); i++) {
-         trains[i]->setEnable(b);
-         label_train[i]->setEnabled(b);
+void MainWindow::enableTrain(int id, bool b){
+    if (id > 0 && id < trains.size()){
+        label_train[id]->setEnabled(b);
     }
 }
 
-void MainWindow::enableTrain(int id, bool b){
-    if (id > 0 && id < trains.size()){
-        trains[id]->setEnable(b);
-        label_train[id]->setEnabled(b);
+void MainWindow::enableTrains(bool b){
+    for (int i = 1; i < trains.size(); i++) {
+        //enableTrain(i, b);
+        trains[i]->setEnable(b);
     }
 }
 

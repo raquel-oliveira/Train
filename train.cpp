@@ -47,6 +47,7 @@ void Train::setSpeed(int speed)
 void Train::setEnable(bool enable)
 {
     this->enable = enable;
+    emit updateGUI(id,enable);
 }
 
 string Train::getLastRaceTime(){

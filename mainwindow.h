@@ -29,6 +29,7 @@ public slots:
     void updateSem(int, int); //after V/P
     void receiveMessage(int, int, int);
     void updateInterface(int); //after a lap
+    void enableTrain(int, bool);
 
 private:
     Ui::MainWindow *ui;
@@ -42,8 +43,7 @@ private:
     vector<QWidget*> label_sem;
     Server *server;
     vector<Semaphore*> sems;
-    void enableTrains(bool);
-    void enableTrain(int, bool);
+    void enableTrains(bool b);
     void initialize();
     void fillCR();
     void initTrain(int, int, int);
