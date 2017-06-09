@@ -52,12 +52,19 @@ void MainWindow::updateInterface(int id){
        return;
     labelLastTime->setText(lastTime);
 
-    //Update media(time) of races
+    //Update mean(time) of races
     QString average = QString::fromStdString(trains[id]->getMediaRaceTime());
     QLabel *labelMediaTime = qobject_cast<QLabel *>(label_mediaTime[id]);
     if (!labelMediaTime)
        return;
     labelMediaTime->setText(average);
+
+    //Update standard deviation(time) of races
+    QString stdDev = QString::fromStdString(trains[id]->getStdDevTime());
+    QLabel *labelStdDevTime = qobject_cast<QLabel *>(label_stdDevTime[id]);
+    if (!labelStdDevTime)
+       return;
+    labelStdDevTime->setText(stdDev);
 }
 
 void MainWindow::updateInterface(int id, int x, int y)
@@ -178,6 +185,16 @@ void MainWindow::initialize(){
     label_mediaTime.push_back(ui->mediaTime_train5);
     label_mediaTime.push_back(ui->mediaTime_train6);
     label_mediaTime.push_back(ui->mediaTime_train7);
+
+    label_stdDevTime.push_back(NULL);
+    label_stdDevTime.push_back(ui->stdDev_train1);
+    label_stdDevTime.push_back(ui->stdDev_train2);
+    label_stdDevTime.push_back(ui->stdDev_train3);
+    label_stdDevTime.push_back(ui->stdDev_train4);
+    label_stdDevTime.push_back(ui->stdDev_train5);
+    label_stdDevTime.push_back(ui->stdDev_train6);
+    label_stdDevTime.push_back(ui->stdDev_train7);
+
 
     sems.push_back(new Semaphore(1234,1,0));
     sems.push_back(new Semaphore(1235,1,1));

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <time.h>
 #include <queue>
+#include <cmath>
 #include "semaphore.h"
 #include "rail.h"
 
@@ -38,6 +39,7 @@ public:
     Rail* getRail();
     string getLastRaceTime();
     string getMediaRaceTime();
+    string getStdDevTime();
     void init(int, int);
 
 signals:

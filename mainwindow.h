@@ -38,6 +38,7 @@ private:
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
     vector<QWidget*> label_mediaTime;
+    vector<QWidget*> label_stdDevTime;
     vector<QWidget*> label_sem;
     Server *server;
     vector<Semaphore*> sems;

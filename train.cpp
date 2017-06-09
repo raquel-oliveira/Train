@@ -71,6 +71,22 @@ string Train::getMediaRaceTime(){
     }
 }
 
+string Train::getStdDevTime(){
+    int size = timeRace.size();
+    double mean = stod(this->getMediaRaceTime());
+    if(size == 0){
+        return "0";
+    } else {
+        double stdDev = 0;
+        for (int i = 0; i < size; i++){
+            stdDev += (timeRace[i] - mean) * (timeRace[i] - mean);
+        }
+        stdDev = stdDev/size;
+        stdDev = sqrt(stdDev);
+        return to_string(stdDev);
+    }
+}
+
 
 void Train::start()
 {
