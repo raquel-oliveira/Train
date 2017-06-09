@@ -11,7 +11,7 @@ Train::Train(int id, int x, int y, Rail* r)
     laps = 0;
     curr_x = x;
     curr_y = y;
-    //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
 }
 
 //gambiarra init
@@ -242,9 +242,9 @@ void Train::run()
             }
             if(curr_x == x && curr_y == y){
                 laps++;
-                //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
+                clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
                 timeRace.push_back((double)(ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9);
-                //clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
+                clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
                 emit updateGUI(id);
 
             }
