@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
            trains[i]->start();
     }
 
-    enableTrains(false);
     server = new Server();
     server->start();
     connect(server,SIGNAL(sendMessage(int, int, int)),SLOT(receiveMessage(int, int, int)));
@@ -97,13 +96,6 @@ void MainWindow::updateLog(int trainId, int semId, int semCounter) {
     ui->listWidget->addItem(Qs);
 }
 
-void MainWindow::enableTrains(bool b){
-    for (int i = 1; i < trains.size(); i++) {
-        //enableTrain(i, b);
-        trains[i]->setEnable(b);
-    }
-}
-
 void MainWindow::enableTrain(int id, bool b){
     if (id > 0 && id < trains.size()){
         label_train[id]->setEnabled(b);
@@ -116,19 +108,23 @@ void MainWindow::receiveMessage(int command, int train, int speed) {
             break;
         case TURN_ON_TRAINS:
             cout << "Ligar todos os trens" << endl;
-            enableTrains(true);
+            for (int i = 1; i < trains.size(); i++) {
+                trains[i]->setEnable(true);
+            }
             break;
         case TURN_OFF_TRAINS:
             cout << "Desligar todos os trens" << endl;
-            enableTrains(false);
+            for (int i = 1; i < trains.size(); i++) {
+                trains[i]->setEnable(false);
+            }
             break;
         case TURN_ON_TRAIN:
             cout << "Ligar trem "<< train << endl;
-            enableTrain(train, true);
+            trains[train]->setEnable(true);
             break;
         case TURN_OFF_TRAIN:
             cout << "Desligar trem "<< train << endl;
-            enableTrain(train, false);
+            trains[train]->setEnable(false);
             break;
         case CHANGE_SPEED:
             if (train > 0 && train < trains.size()){
@@ -228,6 +224,10 @@ void MainWindow::initialize(){
     label_sem.push_back(ui->sem7);
     label_sem.push_back(ui->sem8);
     label_sem.push_back(ui->sem9);
+
+    for (int i = 1; i < trains.size(); i++) {
+        trains[i]->setEnable(false);
+    }
 }
 
 void MainWindow::fillCR(){

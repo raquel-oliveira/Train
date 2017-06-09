@@ -44,7 +44,6 @@ private:
     vector<QWidget*> label_sem;
     Server *server;
     vector<Semaphore*> sems;
-    void enableTrains(bool b);
     void initialize();
     void fillCR();
     void initTrain(int, int, int);
