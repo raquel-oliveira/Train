@@ -33,8 +33,9 @@ public:
     void setEnable(bool);
     int getId() const;
     int getLaps();
-    double getLastRaceTime();
     Rail* getRail();
+    string getLastRaceTime();
+    string getMediaRaceTime();
     void init(int, int);
 
 signals:

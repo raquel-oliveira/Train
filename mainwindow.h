@@ -31,13 +31,14 @@ private:
     vector<QWidget*> label_train;
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
+    vector<QWidget*> label_mediaTime;
     Server *server;
     vector<Semaphore*> sems;
     void enableTrains(bool);
     void enableTrain(int, bool);
     void initialize();
     void fillCR();
-    const void initTrain(int, const int, const int);
+    void initTrain(int, int, int);
 };
 
 #endif // MAINWINDOW_H

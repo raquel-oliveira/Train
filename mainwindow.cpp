@@ -48,6 +48,20 @@ void MainWindow::updateInterface(int id, int x, int y)
     if (!labelLap)
        return;
     labelLap->setText(laps);
+
+    //Update time of last race
+    QString lastTime = QString::fromStdString(trains[id]->getLastRaceTime());
+    QLabel *labelLastTime = qobject_cast<QLabel *>(label_lastTime[id]);
+    if (!labelLastTime)
+       return;
+    labelLastTime->setText(lastTime);
+
+    //Update media(time) of races
+    QString average = QString::fromStdString(trains[id]->getMediaRaceTime());
+    QLabel *labelMediaTime = qobject_cast<QLabel *>(label_mediaTime[id]);
+    if (!labelMediaTime)
+       return;
+    labelMediaTime->setText(average);
 }
 
 void MainWindow::enableTrains(bool b){
@@ -96,7 +110,7 @@ void MainWindow::receiveMessage(int command, int train, int speed) {
         }
 }
 
-const void MainWindow::initTrain(int id, const int x, const int y) {
+void MainWindow::initTrain(int id, int x, int y) {
     trains[id]->init(x, y);
     //label_train[id]->geometry().setX(x);
     //label_train[id]->geometry().setY(y);
@@ -141,6 +155,15 @@ void MainWindow::initialize(){
     label_lastTime.push_back(ui->lastTime_train5);
     label_lastTime.push_back(ui->lastTime_train6);
     label_lastTime.push_back(ui->lastTime_train7);
+
+    label_mediaTime.push_back(ui->label_average);
+    label_mediaTime.push_back(ui->mediaTime_train1);
+    label_mediaTime.push_back(ui->mediaTime_train2);
+    label_mediaTime.push_back(ui->mediaTime_train3);
+    label_mediaTime.push_back(ui->mediaTime_train4);
+    label_mediaTime.push_back(ui->mediaTime_train5);
+    label_mediaTime.push_back(ui->mediaTime_train6);
+    label_mediaTime.push_back(ui->mediaTime_train7);
 
     sems.push_back(new Semaphore(1234,1));
     sems.push_back(new Semaphore(1235,1));
