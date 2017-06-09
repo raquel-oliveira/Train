@@ -32,6 +32,7 @@ public:
     int getId() const;
     int getLaps();
     string getLastRaceTime();
+    string getMediaRaceTime();
     Rail getRail();
     void init(int, int);
 

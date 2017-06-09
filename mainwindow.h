@@ -31,6 +31,7 @@ private:
     vector<QWidget*> label_train;
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
+    vector<QWidget*> label_mediaTime;
     Server *server;
     vector<Semaphore> sems;
     void enableTrains(bool);

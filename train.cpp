@@ -57,6 +57,22 @@ string Train::getLastRaceTime(){
         return to_string(this->timeRace.back());
     }
 }
+
+string Train::getMediaRaceTime(){
+    int size = timeRace.size();
+    if(size == 0){
+        return "0";
+    } else {
+        double media = 0;
+        for (int i = 0; i < size; i++){
+            media += timeRace[i];
+        }
+        media = media/size;
+        return to_string(media);
+    }
+}
+
+
 void Train::start()
 {
     threadTrem = std::thread(&Train::run,this);
