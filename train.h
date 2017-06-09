@@ -4,8 +4,10 @@
 #include <QObject>
 #include <thread>
 #include <chrono>
+#include <iostream>
 #include "rail.h"
 #include <time.h>
+#include <queue>
 
 #define CONV 310
 //Defize size of train
@@ -23,7 +25,7 @@ public:
         }
     };
 
-    Train(int,int,int,Rail);
+    Train(int,int,int,Rail*);
     ~Train();
     void start();
     void run();
@@ -32,7 +34,7 @@ public:
     int getId() const;
     int getLaps();
     double getLastRaceTime();
-    Rail getRail();
+    Rail* getRail();
     void init(int, int);
 
 signals:
@@ -45,7 +47,7 @@ private:
    int y;
    int speed;
    bool enable;
-   Rail rail;
+   Rail* rail;
    int laps;
    int curr_x, curr_y;
    vector<double> timeRace;

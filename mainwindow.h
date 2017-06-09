@@ -32,7 +32,7 @@ private:
     vector<QWidget*> label_numberLaps;
     vector<QWidget*> label_lastTime;
     Server *server;
-    vector<Semaphore> sems;
+    vector<Semaphore*> sems;
     void enableTrains(bool);
     void enableTrain(int, bool);
     void initialize();

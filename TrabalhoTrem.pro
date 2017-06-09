@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     train.cpp \
     server.cpp \
-    semaphore.cpp
+    semaphore.cpp \
+    rail.cpp
 
 HEADERS  += mainwindow.h \
     rail.h \
