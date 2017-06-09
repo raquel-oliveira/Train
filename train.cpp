@@ -6,7 +6,7 @@ Train::Train(int id, int x, int y, Rail r)
     this->id = id;
     this->x = x;
     this->y = y;
-    speed = 50;
+    speed = 270;
     enable = false;
     rail = r;
     laps = 0;
@@ -50,11 +50,11 @@ void Train::setEnable(bool enable)
     this->enable = enable;
 }
 
-double Train::getLastRaceTime(){
+string Train::getLastRaceTime(){
     if(timeRace.size() == 0){
-        return 0;
+        return "0";
     } else{
-        this->timeRace.back();
+        return to_string(this->timeRace.back());
     }
 }
 void Train::start()
@@ -82,8 +82,7 @@ void Train::run()
             if(curr_x == x && curr_y == y){
                 laps++;
                 clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_end);
-                timeRace.push_back((ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9);
-                //cout << id <<"  FIM VOLTA: " << (ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9 << " sec" <<endl;
+                timeRace.push_back((double)(ts_end.tv_sec - ts_beg.tv_sec) + (ts_end.tv_nsec - ts_beg.tv_nsec) / 1e9);
                 clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts_beg);
             }
         }

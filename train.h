@@ -31,7 +31,7 @@ public:
     void setEnable(bool);
     int getId() const;
     int getLaps();
-    double getLastRaceTime();
+    string getLastRaceTime();
     Rail getRail();
     void init(int, int);
 

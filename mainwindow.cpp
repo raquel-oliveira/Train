@@ -48,6 +48,13 @@ void MainWindow::updateInterface(int id, int x, int y)
     if (!labelLap)
        return;
     labelLap->setText(laps);
+
+    //Update number
+    QString lastTime = QString::fromStdString(trains[id]->getLastRaceTime());
+    QLabel *labelLastTime = qobject_cast<QLabel *>(label_lastTime[id]);
+    if (!labelLastTime)
+       return;
+    labelLastTime->setText(lastTime);
 }
 
 void MainWindow::enableTrains(bool b){
