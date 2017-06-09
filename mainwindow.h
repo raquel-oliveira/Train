@@ -29,6 +29,7 @@ public slots:
     void updateSem(int, int); //after V/P
     void receiveMessage(int, int, int);
     void updateInterface(int); //after a lap
+    void updateLog(int,int,int);
 
 private:
     Ui::MainWindow *ui;

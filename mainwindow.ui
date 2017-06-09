@@ -1196,6 +1196,16 @@
         <height>549</height>
        </rect>
       </property>
+      <widget class="QListWidget" name="listWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>241</width>
+         <height>551</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QLabel" name="label">
@@ -1798,7 +1808,6 @@
     <zorder>red1</zorder>
     <zorder>indigo1</zorder>
     <zorder>sem0</zorder>
-    <zorder>sem7</zorder>
     <zorder>sem7</zorder>
     <zorder>orange2</zorder>
     <zorder>red2</zorder>

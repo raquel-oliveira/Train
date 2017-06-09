@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
            connect(trains[i],SIGNAL(updateGUI(int,int)),SLOT(updateSem(int,int)));
            updateInterface(i); //to initialize
            connect(trains[i],SIGNAL(updateGUI(int)),SLOT(updateInterface(int)));
+           connect(trains[i],SIGNAL(updateLog(int,int,int)),SLOT(updateLog(int,int,int)));
            trains[i]->start();
     }
 
@@ -83,6 +84,16 @@ void MainWindow::updateSem(int id, int flag){
             pLabel->setStyleSheet("QLabel { background-color : pink;}");
         }
     }
+}
+
+void MainWindow::updateLog(int trainId, int semId, int semCounter) {
+    string s;
+    if(semCounter == 1)
+        s = "Trem " + to_string(trainId) + " deu V no semáforo " + to_string(semId) + ".";
+    else
+        s = "Trem " + to_string(trainId) + " deu P no semáforo " + to_string(semId) + ".";
+    QString Qs = QString::fromStdString(s);
+    ui->listWidget->addItem(Qs);
 }
 
 void MainWindow::enableTrains(bool b){
